@@ -20,14 +20,14 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
-  username: ybcwqinttvlfsj
+  username: denver932
   timeout: 5000
   host: localhost
-  port: 5432
+  port: 9321
 
 development:
   <<: *default
-  database: d6vp6duv5814ad
+  database: lesson5
 
 
   # The specified database role being used to connect to postgres.
@@ -86,5 +86,4 @@ test:
 #
 production:
   <<: *default
-  database: d6vp6duv5814ad
-  username: ybcwqinttvlfsj
+  url: <%= ENV['DATABASE_URL'] %>
