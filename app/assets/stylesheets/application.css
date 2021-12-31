@@ -13,11 +13,3 @@
  *= require_tree .
  *= require_self
 */
-
-h2 {
-  font-size: 4px;
-}
-
-.small_tags {
-  font-size: 4px;
-}
