@@ -1,10 +1,17 @@
 class DiagnosisItemsController < ApplicationController
+  load_and_authorize_resource
+
   def index
-    @diagnosis_items = DiagnosisItem.all
+    respond_to do |format|
+      format.json do
+        @diagnosis_items = DiagnosisItem.where(patient_id: params[:patient_id])
+        render json: @diagnosis_items
+      end
+      format.html
+    end
   end
 
   def create
-    @diagnosis_item = DiagnosisItem.new(diagnosis_item_params)
     if @diagnosis_item.save
       redirect_to @diagnosis_item
     else
@@ -12,24 +19,17 @@ class DiagnosisItemsController < ApplicationController
     end
   end
 
-  def show
-    @diagnosis_item = DiagnosisItem.find(params[:id])
-  end
-
   def new
-    @diagnosis_item = DiagnosisItem.new
     @patients = Patient.all
     @physicians = Physician.all
   end
 
   def edit
-    @diagnosis_item = DiagnosisItem.find(params[:id])
     @patients = Patient.all
     @physicians = Physician.all
   end
 
   def update
-    @diagnosis_item = DiagnosisItem.find(params[:id])
     if @diagnosis_item.update(diagnosis_item_params)
       redirect_to @diagnosis_item
     else
@@ -38,7 +38,6 @@ class DiagnosisItemsController < ApplicationController
   end
 
   def destroy
-    @diagnosis_item = DiagnosisItem.find(params[:id])
     @diagnosis_item.destroy
     redirect_to diagnosis_items_path
   end
